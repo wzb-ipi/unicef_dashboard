@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>round2.knit</title>
+
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">IGC COVID-19 Dashboard</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="round1.html">Round 1</a>
+</li>
+<li>
+  <a href="round2.html">Round 2</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+
+</div>
+
+
+<style type="text/css">
+  h2{
+  font-size: 12pt;
+}
+
+  h3{
+  font-size: 8pt;
+}
+
+  h1.title{
+  font-size: 30pt;
+  color: DarkBlue;
+}
+</style>
+<hr />
+<div id="section" class="section level1 tabset tabset-pills">
+<h1 class="tabset tabset-pills"></h1>
+<div id="knowledge-of-covid-19" class="section level2 tabset tabset-pills">
+<h2>Knowledge of COVID-19</h2>
+<div id="trends" class="section level3 tabset tabset-pills">
+<h3>Trends</h3>
+<blockquote>
+<p>Percentage of households knowledge of COVID-19 symptoms</p>
+</blockquote>
+<p><img src="Figures%20R2/COVID_knowledge_all_sympts.png" width="50%" /></p>
+<blockquote>
+<p>Percentage of households knowledge of COVID-19 contraction</p>
+</blockquote>
+<p><img src="Figures%20R2/cov_contraction.png" width="50%" /></p>
+<blockquote>
+<p>Percentage of households with asymptomatic knowledge</p>
+</blockquote>
+<p><img src="Figures%20R2/covid_asymp.png" width="50%" /></p>
+<blockquote>
+<p>Percentage of households stating people can recover from COVID-19</p>
+</blockquote>
+<p><img src="Figures%20R2/covid_recov.png" width="50%" /></p>
+<blockquote>
+<p>Percentage of households knowledge that COVID-19 tests are available and free</p>
+</blockquote>
+<p><img src="Figures%20R2/covid_free.png" width="50%" /></p>
+<blockquote>
+<p>Percentage of households stating drinking alcohol kills COVID-19</p>
+</blockquote>
+<p><img src="Figures%20R2/covid_alcohol.png" width="50%" /></p>
+<blockquote>
+<p>Percentage of households stating hot weather kills COVID-19</p>
+</blockquote>
+<p><img src="Figures%20R2/covid_weather.png" width="50%" /></p>
+<div id="gender" class="section level4">
+<h4>Gender</h4>
+<p><img src="Figures%20R2/COVID_knowledge_gender.png" width="50%" /></p>
+</div>
+<div id="age" class="section level4">
+<h4>Age</h4>
+<p><img src="Figures%20R2/COVID_knowledge_age_cat.png" width="50%" /></p>
+</div>
+<div id="education" class="section level4">
+<h4>Education</h4>
+<p><img src="Figures%20R2/COVID_knowledge_edu_level.png" width="50%" /></p>
+</div>
+<div id="location" class="section level4">
+<h4>Location</h4>
+<p><img src="Figures%20R2/COVID_knowledge_urbrur.png" width="50%" /></p>
+</div>
+</div>
+<div id="definition-of-measures" class="section level3">
+<h3>Definition of Measures</h3>
+<p>Data definitions:</p>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Measure</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>COVID-19 symptoms</td>
+<td>What are the symptoms of COVID-19?</td>
+</tr>
+<tr class="even">
+<td>COVID-19 contraction</td>
+<td>How does someone get COVID-19?</td>
+</tr>
+<tr class="odd">
+<td>Asymptomatic knowledge</td>
+<td>Can someone who shows no symptoms of COVID-19 still have it?</td>
+</tr>
+<tr class="even">
+<td>Recovery knowledge</td>
+<td>Can someone recover from COVID-19?</td>
+</tr>
+<tr class="odd">
+<td>True/False knowledge</td>
+<td>COVID-19 tests are available and free</td>
+</tr>
+<tr class="even">
+<td>True/False knowledge</td>
+<td>Drinking alcohol can prevent from getting COVID-19</td>
+</tr>
+<tr class="odd">
+<td>True/False knowledge</td>
+<td>Hot weather kills COVID-19</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="policy-briefs" class="section level3">
+<h3>Policy Briefs</h3>
+<ul>
+<li><p><a href="https://yrise.yale.edu/wp-content/uploads/2021/04/Covids-impact-on-gender.pdf">How is Covid-19 affecting gender inequality in low-income countries?</a></p></li>
+<li><p><a href="https://www.theigc.org/wp-content/uploads/2020/07/Meriggi-et-al-Data-Brief-2-2020.pdf">Tracking the Economic Consequences of COVID-19</a></p></li>
+</ul>
+</div>
+</div>
+<div id="awareness-of-covid-19-vaccines" class="section level2 tabset tabset-pills">
+<h2>Awareness of COVID-19 Vaccines</h2>
+<div id="trends-1" class="section level3 tabset tabset-pills">
+<h3>Trends</h3>
+<blockquote>
+<p>Percentage of households stating who they trust most</p>
+</blockquote>
+<p><img src="Figures%20R2/cov_trust.png" width="50%" /></p>
+<blockquote>
+<p>Percentage of households stating who told them of COVID-19</p>
+</blockquote>
+<p><img src="Figures%20R2/covid_told.png" width="50%" /></p>
+<blockquote>
+<p>Percentage of households stating they are at risk for COVID-19</p>
+</blockquote>
+<p><img src="Figures%20R2/covid_risk.png" width="50%" /></p>
+<blockquote>
+<p>Percentage of households stating their community is at risk for COVID-19</p>
+</blockquote>
+<p><img src="Figures%20R2/covid_risk_comm.png" width="50%" /></p>
+<div id="gender-1" class="section level4">
+<h4>Gender</h4>
+<p><img src="Figures%20R2/risk_gender.png" width="50%" /></p>
+</div>
+<div id="age-1" class="section level4">
+<h4>Age</h4>
+<p><img src="Figures%20R2/risk_age_cat.png" width="50%" /></p>
+</div>
+<div id="education-1" class="section level4">
+<h4>Education</h4>
+<p><img src="Figures%20R2/risk_edu_level.png" width="50%" /></p>
+</div>
+<div id="location-1" class="section level4">
+<h4>Location</h4>
+<p><img src="Figures%20R2/risk_urbrur.png" width="50%" /></p>
+</div>
+</div>
+<div id="definition-of-measures-1" class="section level3">
+<h3>Definition of Measures</h3>
+<p>Data definitions:</p>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Measure</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Trust</td>
+<td>Who do you trust information around COVID-19 coming from?</td>
+</tr>
+<tr class="even">
+<td>Informed</td>
+<td>Who told you about COVID-19?</td>
+</tr>
+<tr class="odd">
+<td>Own risk</td>
+<td>What do you think your risk is for contracting COVID-19?</td>
+</tr>
+<tr class="even">
+<td>Community risk</td>
+<td>What do you think is the risk that someone in your community contracts COVID-19?</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="access-to-covid-19-vaccines" class="section level2 tabset tabset-pills">
+<h2>Access to COVID-19 Vaccines</h2>
+<div id="trends-2" class="section level3 tabset tabset-pills">
+<h3>Trends</h3>
+<blockquote>
+<p>Percentage of households who know which COVID-19 vaccines are in SL</p>
+</blockquote>
+<p><img src="Figures%20R2/know_types.png" width="50%" /></p>
+<blockquote>
+<p>Percentage of households who have taken the COVID-19 vaccine</p>
+</blockquote>
+<p><img src="Figures%20R2/cov_take_gen.png" width="50%" /></p>
+<blockquote>
+<p>Percentage of households who know which vaccine they took</p>
+</blockquote>
+<p><img src="Figures%20R2/cov_which.png" width="50%" /></p>
+<div id="gender-2" class="section level4">
+<h4>Gender</h4>
+<blockquote>
+<p>Disaggregation of households by gender who have taken the COVID-19 vaccine</p>
+</blockquote>
+<p><img src="Figures%20R2/cov_takenoff_gender.png" width="50%" /></p>
+</div>
+<div id="age-2" class="section level4">
+<h4>Age</h4>
+<blockquote>
+<p>Disaggregation of Households by age category who have taken the COVID-19 vaccine</p>
+</blockquote>
+<p><img src="Figures%20R2/cov_takenoff_age_cat.png" width="50%" /></p>
+</div>
+<div id="education-2" class="section level4">
+<h4>Education</h4>
+<blockquote>
+<p>Disaggregation of Households by education level who have taken the COVID-19 vaccine</p>
+</blockquote>
+<p><img src="Figures%20R2/cov_takenoff_edu_level.png" width="50%" /></p>
+</div>
+<div id="location-2" class="section level4">
+<h4>Location</h4>
+<blockquote>
+<p>Disaggregation of Households by rural/urban status who have taken the COVID-19 vaccine</p>
+</blockquote>
+<p><img src="Figures%20R2/cov_takenoff_urbrur.png" width="50%" /></p>
+</div>
+</div>
+<div id="definition-of-measures-2" class="section level3">
+<h3>Definition of Measures</h3>
+<p>Data definitions:</p>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Measure</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Vaccine availability knowledge</td>
+<td>Do you know which types of COVID-19 vaccines are available to Sierra Leoneans and others in the country?</td>
+</tr>
+<tr class="even">
+<td>Taken COVID-19 vaccine</td>
+<td>Have you personally received a vaccine against COVID-19?</td>
+</tr>
+<tr class="odd">
+<td>Knowledge of vaccine type</td>
+<td>You said you have taken the COVID-19 vaccine, which vaccine did you take?</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="policy-briefs-1" class="section level3">
+<h3>Policy Briefs</h3>
+<ul>
+<li><p><a href="https://yrise.yale.edu/using-migration-patterns-to-predict-covid-19-risk-exposure-in-developing-countries/">Using Migration Patterns to Predict COVID-19 Risk Exposure in Developing Countries</a></p></li>
+<li><p><a href="https://yrise.yale.edu/migration-and-the-labor-market-impacts-of-covid-19/">Migration and the Labor Market Impacts of COVID-19</a></p></li>
+</ul>
+</div>
+</div>
+<div id="attitudes-to-covid-19-vaccines" class="section level2 tabset tabset-pills">
+<h2>Attitudes to COVID-19 Vaccines</h2>
+<div id="trends-3" class="section level3 tabset tabset-pills">
+<h3>Trends</h3>
+<blockquote>
+<p>Percentage of households knowledge of COVID-19 side effects</p>
+</blockquote>
+<p><img src="Figures%20R2/sideeffects.png" width="50%" /></p>
+<blockquote>
+<p>Percentage of households willing to take the COVID-19 vaccine</p>
+</blockquote>
+<p><img src="Figures%20R2/willingtypes.png" width="50%" /></p>
+<div id="gender-3" class="section level4">
+<h4>Gender</h4>
+<p><img src="Figures%20R2/cov2_gender.png" width="50%" /></p>
+</div>
+<div id="age-3" class="section level4">
+<h4>Age</h4>
+<p><img src="Figures%20R2/cov2_age_cat.png" width="50%" /></p>
+</div>
+<div id="education-3" class="section level4">
+<h4>Education</h4>
+<p><img src="Figures%20R2/cov2_edu_level.png" width="50%" /></p>
+</div>
+<div id="location-3" class="section level4">
+<h4>Location</h4>
+<p><img src="Figures%20R2/cov2_urbrur.png" width="50%" /></p>
+</div>
+</div>
+<div id="definition-of-measures-3" class="section level3">
+<h3>Definition of Measures</h3>
+<p>Data definitions:</p>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Measure</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Knowledge of side effects</td>
+<td>After a COVID-19 vaccine, can you please tell us what are common side effects that people experience from the COVID-19 vaccine?</td>
+</tr>
+<tr class="even">
+<td>Willingness to vaccinate</td>
+<td>Should any vaccine against COVID-19 be offered to you, would you take it?</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="puplished-papers" class="section level3">
+<h3>Puplished Papers</h3>
+<ul>
+<li><a href="https://www.nature.com/articles/s41591-021-01454-y/">COVID-19 vaccine acceptance and hesitancy in low- and middle-income countries</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
